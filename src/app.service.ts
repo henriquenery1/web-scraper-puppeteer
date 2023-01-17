@@ -3,13 +3,13 @@ import puppeteer from 'puppeteer';
 
 @Injectable()
 export class AppService {
-  public url: string =
+  async allInformationNotebooksLenovo(): Promise<any > {
+    const url: string =
     'https://webscraper.io/test-sites/e-commerce/allinone/computers/laptops';
 
-  async getAmountNotebooks(): Promise<any > {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(this.url);
+    await page.goto(url);
 
     await page.waitForSelector('.thumbnail');
 

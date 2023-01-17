@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getNotebooks(): any {
-    return this.appService.getAmountNotebooks();
+    return this.appService.allInformationNotebooksLenovo();
   }
 }
