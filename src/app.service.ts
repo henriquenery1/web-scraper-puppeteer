@@ -11,10 +11,7 @@ export class AppService {
     const page = await browser.newPage();
     await page.goto(url);
     await page.waitForSelector('.thumbnail');
-
-    const informationNotebooks = await page.$$eval('.thumbnail', (el) =>
-      el.map((elem) => elem.innerHTML),
-    );
+    
     const notebooksTitle = await page.$$eval('.thumbnail a', (el) =>
       el.map((elem) => elem.textContent),
     );
