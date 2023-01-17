@@ -13,9 +13,15 @@ export class AppService {
 
     await page.waitForSelector('.thumbnail');
 
-    const notebooksTitle = await page.$$eval(".thumbnail a", (el) =>
-    el.map((elem) => elem.textContent)
-  );
+    const notebooksTitle = await page.$$eval('.thumbnail a', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+    let index = -1;
+    for (let i = 0; i < notebooksTitle.length; i++) {
+      if (notebooksTitle[i].includes('Lenovo')) {
+        index = i;
+      }
+    }
 
     await browser.close();
     return notebooksTitle.length;
