@@ -3,9 +3,9 @@ import puppeteer from 'puppeteer';
 
 @Injectable()
 export class AppService {
-  async allInformationNotebooksLenovo(): Promise<any > {
+  async allInformationNotebooksLenovo(): Promise<any> {
     const url: string =
-    'https://webscraper.io/test-sites/e-commerce/allinone/computers/laptops';
+      'https://webscraper.io/test-sites/e-commerce/allinone/computers/laptops';
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -20,15 +20,38 @@ export class AppService {
     const notebooksTitle = await page.$$eval('.thumbnail a', (el) =>
       el.map((elem) => elem.textContent),
     );
+    const prices = await page.$$eval('.price', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+    const descriptions = await page.$$eval('.description', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+    const ratings = await page.$$eval('.ratings', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+    const rights = await page.$$eval('.ratings', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+    const dataRatings = await page.$$eval('.data-rating', (el) =>
+      el.map((elem) => elem.textContent),
+    );
+
     let indexLenovoNotebooks = -1;
-    let allInformationLenovoNotebooks: Array<string> = []
+    let testJson = [];
+    let allInformationLenovoNotebooks: Array<any> = [];
     for (let i = 0; i < notebooksTitle.length; i++) {
       if (notebooksTitle[i].includes('Lenovo')) {
-        allInformationLenovoNotebooks.push(notebooksTitle[i]);
+        let product = {
+          title: notebooksTitle[i],
+          price: prices[i],
+          description: descriptions[i],
+        };
+
+        testJson.push(product);
       }
     }
 
     await browser.close();
-    return allInformationLenovoNotebooks;
+    return testJson;
   }
 }
