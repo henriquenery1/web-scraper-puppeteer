@@ -10,13 +10,11 @@ export class AppService {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
-
     await page.waitForSelector('.thumbnail');
 
     const informationNotebooks = await page.$$eval('.thumbnail', (el) =>
       el.map((elem) => elem.innerHTML),
     );
-
     const notebooksTitle = await page.$$eval('.thumbnail a', (el) =>
       el.map((elem) => elem.textContent),
     );
@@ -26,32 +24,24 @@ export class AppService {
     const descriptions = await page.$$eval('.description', (el) =>
       el.map((elem) => elem.textContent),
     );
-    const ratings = await page.$$eval('.ratings', (el) =>
-      el.map((elem) => elem.textContent),
-    );
-    const rights = await page.$$eval('.ratings', (el) =>
-      el.map((elem) => elem.textContent),
-    );
-    const dataRatings = await page.$$eval('.data-rating', (el) =>
+    const rights = await page.$$eval('.pull-right', (el) =>
       el.map((elem) => elem.textContent),
     );
 
-    let indexLenovoNotebooks = -1;
-    let testJson = [];
-    let allInformationLenovoNotebooks: Array<any> = [];
+    let informationsLenovoNotebooks = [];
     for (let i = 0; i < notebooksTitle.length; i++) {
       if (notebooksTitle[i].includes('Lenovo')) {
         let product = {
-          title: notebooksTitle[i],
-          price: prices[i],
-          description: descriptions[i],
+            title: notebooksTitle[i],
+            price: prices[i],
+            description: descriptions[i],
+            right: rights[i],
         };
-
-        testJson.push(product);
+        informationsLenovoNotebooks.push(product);
       }
     }
 
     await browser.close();
-    return testJson;
+    return informationsLenovoNotebooks;
   }
 }
