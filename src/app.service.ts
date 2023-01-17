@@ -31,13 +31,13 @@ export class AppService {
     let informationsLenovoNotebooks = [];
     for (let i = 0; i < notebooksTitle.length; i++) {
       if (notebooksTitle[i].includes('Lenovo')) {
-        let product = {
+        let notebookLenovo = {
             title: notebooksTitle[i],
             price: prices[i],
             description: descriptions[i],
             right: rights[i],
         };
-        informationsLenovoNotebooks.push(product);
+        informationsLenovoNotebooks.push(notebookLenovo);
       }
     }
 
