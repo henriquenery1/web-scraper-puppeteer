@@ -16,7 +16,19 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      const jsonResponse = {
+        "notebook": {
+        "img": "link",
+        "price": "1",
+        "titile": "Lenovo",
+        "description": "lorem",
+        "ratings": "1",
+        "pull-right": "12",
+        "data-rating": "4"
+        }
+      }
+      ;
+      expect(appController.getNotebooks).toBe(jsonResponse);
     });
   });
 });
